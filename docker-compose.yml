@@ -21,7 +21,7 @@ services:
       - "5432:5432"
     volumes:
       - ./data:/var/lib/postgresql/data
-      # - ./startup_scripts:/docker-entrypoint-initdb.d
+      - ./db-scripts:/home/sample-flask-app
     environment:
       POSTGRES_USER: "books-user"
       POSTGRES_PASSWORD: "books-pwd"

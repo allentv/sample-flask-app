@@ -18,10 +18,22 @@ Database migrations can be executed by
 
 ```bash
 docker-compose exec webapp /bin/bash
-flask db migrate
+flask db migrate -m "Create books and requests"
+flask db upgrade
+```
+
+To seed the database:
+
+```bash
+docker-compose exec db /bin/bash
+psql -U $POSTGRES_USER -d $POSTGRES_DB -a -f /home/sample-flask-app/seed_db.sql
 ```
 
 You can verify that the tables are setup by access the Postgres shell in the `db` container and then using the command `\dt`. You should see 2 tables : `books` and `requests`.
+
+### Erasing the database
+
+Delete the existing `data` folder and create an empty folder. You will have to re-seed the database to have any data.
 
 ## Webapp
 
@@ -35,3 +47,9 @@ python3 -m venv env
 source env/bin/activate
 pip3 install -r requirements.txt
 ```
+
+## Test Data
+
+`curl -i http://localhost:5000` should display `Hello World!`
+
+Running the seed data script should load the database with 5 records in the `books` table.
