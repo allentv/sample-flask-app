@@ -1,0 +1,6 @@
+flask==1.1.1
+flask-migrate==2.5.2
+flask-sqlalchemy==2.4.1
+docker-compose==1.25.1rc1
+black==19.10b0
+psycopg2==2.8.4

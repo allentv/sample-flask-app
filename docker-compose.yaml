@@ -1,0 +1,28 @@
+version: "3"
+services:
+  webapp:
+    build: .
+    volumes:
+      - .:/opt/code
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    links:
+      - db
+    environment:
+      FLASK_APP: "./src/app.py"
+      DATABASE_URI: "postgresql+psycopg2://books-user:books-pwd@db/books"
+      TRACK_MODIFICATIONS: "False"
+  db:
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./data:/var/lib/postgresql/data
+      # - ./startup_scripts:/docker-entrypoint-initdb.d
+    environment:
+      POSTGRES_USER: "books-user"
+      POSTGRES_PASSWORD: "books-pwd"
+      POSTGRES_DB: "books"
